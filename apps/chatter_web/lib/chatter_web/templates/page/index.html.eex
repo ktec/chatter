@@ -9,3 +9,7 @@
   <label>Message</label>
   <input id="message" type="text" class="form-control" />
 </div>
+
+<script>
+window.CHAT = true
+</script>

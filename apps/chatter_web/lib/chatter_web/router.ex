@@ -16,6 +16,7 @@ defmodule ChatterWeb.Router do
   scope "/", ChatterWeb do
     pipe_through :browser # Use the default browser stack
 
+    get "/particles", PageController, :particles
     get "/", PageController, :index
   end
 
