@@ -2,17 +2,13 @@ defmodule ChatterWeb.RoomChannel do
   use Phoenix.Channel
 
   def join("room:lobby", _payload, socket) do
-    # convert the database response to what the view expects!
-    messages = ChatterEcto.messages("lobby")
-               |> Enum.map(&(%{user: &1.username, body: &1.message}))
+    messages = get_messages("lobby")
     {:ok, messages, socket}
   end
 
   def join("room:" <> room, _payload, socket) do
     socket = assign(socket, :room, room)
-    # convert the database response to what the view expects!
-    messages = ChatterEcto.messages(room)
-               |> Enum.map(&(%{user: &1.username, body: &1.message}))
+    messages = get_messages(room)
     {:ok, messages, socket}
   end
 
@@ -23,5 +19,11 @@ defmodule ChatterWeb.RoomChannel do
     end, [])
     broadcast! socket, "new_message", payload
     {:noreply, socket}
+  end
+
+  # convert the database response to what the view expects!
+  defp get_messages(room) do
+    ChatterEcto.messages(room)
+    |> Enum.map(&(%{user: &1.username, body: &1.message}))
   end
 end
