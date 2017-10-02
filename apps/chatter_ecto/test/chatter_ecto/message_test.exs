@@ -14,10 +14,11 @@ defmodule ChatterEcto.MessageTest do
     test "returns a collection of messages" do
       message = Repo.insert! %Message{
         username: "Fixture",
-        message: "Hello, world!"
+        message: "Hello, world!",
+        room: "lobby"
       }
 
-      assert ChatterEcto.messages == [message]
+      assert ChatterEcto.messages("lobby") == [message]
     end
   end
 
@@ -25,7 +26,8 @@ defmodule ChatterEcto.MessageTest do
     test "save a message and retrieve it again" do
       message = %Message{
         username: "Fixture",
-        message: "Hello, world!"
+        message: "Hello, world!",
+        room: "lobby"
       }
       ChatterEcto.create_message({"Fixture", "Hello, world!"})
 

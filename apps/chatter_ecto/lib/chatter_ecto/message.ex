@@ -5,13 +5,15 @@ defmodule ChatterEcto.Message do
   schema "messages" do
     field :username
     field :message
+    field :room
 
     timestamps()
   end
 
   def changeset(message, params \\ :empty) do
     message
-    |> cast(params, [:username, :message])
+    |> put_change(:room, "lobby")
+    |> cast(params, [:username, :message, :room])
     |> validate_required([:username, :message])
   end
 end

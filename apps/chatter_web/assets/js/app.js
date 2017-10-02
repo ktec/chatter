@@ -3,22 +3,14 @@ import {getCookie, setCookie} from "./cookie"
 
 (() => {
   const ENTER_KEY = 13
-  const init = (socket, document) => {
+  const init = (socket, document, room) => {
     const username = document.getElementById("username")
     const message = document.getElementById("message")
     const messages = document.getElementById("messages")
 
     username.value = getCookie('username')
 
-    let channel = socket.channel("room:lobby", {})
-    channel.join()
-      .receive("ok", response => {
-        console.log("Joined successfully")
-        response.map(renderMessage(messages))
-      })
-      .receive("error", response => {
-        console.log("Unable to join", response)
-      })
+    const channel = joinChannel(socket, room)
 
     message.addEventListener("keypress",
       keyPressHandler(username, message, channel)
@@ -52,5 +44,23 @@ import {getCookie, setCookie} from "./cookie"
        .replace(/<3/g, "♡")
        .replace(/:kiss:/g, "💋")
 
-  init(socket, document)
+  const joinChannel = (socket, room) => {
+    console.log(`Joining ${room}`)
+    let channel = socket.channel(`room:${room}`, {})
+    channel.join()
+      .receive("ok", response => {
+        console.log("Joined successfully")
+        response.map(renderMessage(messages))
+      })
+      .receive("error", response => {
+        console.log("Unable to join", response)
+      })
+    return channel
+  }
+
+  const getRoom = (hash) => {
+    return hash.replace(/^#/,"") || "lobby"
+  }
+
+  init(socket, document, getRoom(window.location.hash))
 })(this)
