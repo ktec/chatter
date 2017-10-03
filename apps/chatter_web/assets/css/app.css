@@ -1,5 +1,13 @@
 /* This file is for your main application css. */
 
+.particles {
+  background-color: #000000;
+}
+
+/*body {
+  background: "#fff"
+}*/
+
 #messages {
   overflow-y: scroll;
   height: 50vH;
