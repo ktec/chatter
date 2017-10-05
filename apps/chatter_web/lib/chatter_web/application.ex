@@ -8,6 +8,7 @@ defmodule ChatterWeb.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(ChatterWeb.Endpoint, []),
+      supervisor(ChatterWeb.Presence, []),
       # Start your own worker by calling: ChatterWeb.Worker.start_link(arg1, arg2, arg3)
       # worker(ChatterWeb.Worker, [arg1, arg2, arg3]),
     ]
