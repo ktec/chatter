@@ -2,12 +2,12 @@
 
 <div class="col-md-2 form-group">
   <label>Username</label>
-  <input id="username" type="text" class="form-control" />
+  <input id="username" type="text" class="form-control" placeholder="Your Name" />
 </div>
 
 <div class="col-md-10 form-group">
   <label>Message</label>
-  <input id="message" type="text" class="form-control" />
+  <input id="message" type="text" class="form-control" placeholder="Say something nice..." />
 </div>
 
 <script>
