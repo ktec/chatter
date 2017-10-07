@@ -2,13 +2,15 @@
 
 #messages {
   overflow-y: scroll;
-  height: 50vH;
+  height: 65vH;
   border-radius: 5px;
   background: #fafafa;
   border: 2px solid #dfdfdf;
   /*border-style:inset;*/
   margin: 10px;
   padding: 10px;
+  bottom: 0px;
+  /*margin-bottom: 10px;*/
 }
 
 #messages p {
@@ -19,4 +21,20 @@
 @-webkit-keyframes fade {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  /*height: 60px;*/
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color: #f5f5f5;
+}
+
+#footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
 }

@@ -29,9 +29,16 @@ defmodule ChatterWeb.RoomChannel do
 
   def handle_in("new_message", %{"body" => body, "user" => user} = payload, socket) do
     room = socket.assigns[:room]
+    if (user != socket.assigns[:username]) do
+      username = socket.assigns[:username]
+      {:ok, _} = Presence.update(socket, socket.assigns.user_id, %{
+        username: username
+      })
+    end
     Process.spawn(fn ->
       ChatterEcto.create_message({user, body, room})
     end, [])
+    # send(self(), :save_message)
     broadcast! socket, "new_message", payload
     {:noreply, socket}
   end

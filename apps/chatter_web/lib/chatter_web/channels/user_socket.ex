@@ -20,11 +20,9 @@ defmodule ChatterWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{"token" => token}, socket) do
-    IO.puts "Connecting with #{token}"
-    auth = Phoenix.Token.verify(socket, "token", token) # expires 86400
+    auth = Phoenix.Token.verify(socket, "token", token, max_age: 1209600)
     case auth do
       {:ok, verified_user_id} ->
-        IO.puts "Verified User: #{verified_user_id}"
         {:ok, assign(socket, :user_id, verified_user_id)}
       {:error, _} -> :error
     end

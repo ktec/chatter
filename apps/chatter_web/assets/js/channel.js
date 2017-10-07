@@ -10,5 +10,6 @@ export const joinChannel = (socket, payload, room, success, error) => {
   channel.join()
     .receive("ok", success || successHandler)
     .receive("error", error || errorHandler)
+    .receive("close", e => console.log("channel closed", e))
   return channel
 }
